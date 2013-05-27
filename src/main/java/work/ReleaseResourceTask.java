@@ -11,6 +11,7 @@ public class ReleaseResourceTask extends Task {
     }
 
     @Override
-    public void execute(ResourceManager manager) {
+    public int execute(ResourceManager manager) {
+        return 0;
     }
 }

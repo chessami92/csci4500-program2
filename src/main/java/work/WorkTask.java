@@ -11,6 +11,7 @@ public class WorkTask extends Task{
     }
 
     @Override
-    public void execute(ResourceManager manager) {
+    public int execute(ResourceManager manager) {
+        return 0;
     }
 }
