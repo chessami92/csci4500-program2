@@ -50,22 +50,21 @@ public class ProcessRunner {
 
     public void runProcesses() {
         Process currentProcess;
+        int currentStep = -1;
 
         while (readyQueue.peek() != null) {
+            /* Update how many tasks have been executed. */
+            currentStep++;
+
             currentProcess = readyQueue.remove();
-            switch (currentProcess.execute(manager)) {
-                case Process.BLOCKED:
-                    blockedQueue.add(currentProcess);
-                    break;
-                case Process.COMPLETE:
-                    System.out.println();
-                    break;
-                case Process.EXECUTING:
-                    readyQueue.add(currentProcess);
-                    break;
-                default:
-                    System.err.println("Unknown response from executing on a process.");
+            currentProcess.execute(manager);
+
+            if (currentProcess.isBlocked()) {
+                blockedQueue.add(currentProcess);
+            } else if (currentProcess.hasWork()) {
+                readyQueue.add(currentProcess);
             }
         }
+        System.out.printf("All processes successfully terminated at step %d.\n", currentStep);
     }
 }

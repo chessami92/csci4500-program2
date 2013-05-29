@@ -48,7 +48,6 @@ public class ResourceManagerTest {
         assertEquals(manager.requestResource(requester, 1), Resource.SUCCESS);
         assertEquals(running.peek(), requester);
         requester.execute(manager);
-        assertEquals(blocked.get(0), requester);
         assertEquals(manager.releaseResource(requester, 1), Resource.SUCCESS);
         assertEquals(running.peek(), requester);
     }

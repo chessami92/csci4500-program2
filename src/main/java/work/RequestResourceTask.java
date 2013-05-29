@@ -17,7 +17,7 @@ public class RequestResourceTask extends Task {
         if (manager.requestResource(runner, resource) == Resource.SUCCESS) {
             return DONE;
         } else {
-            return resource;
+            return NOT_DONE;
         }
     }
 }

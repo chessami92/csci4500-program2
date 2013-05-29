@@ -30,23 +30,22 @@ public class ResourceManager {
     public int requestResource(Process requester, int id) {
         Resource resource = getResourceById(id);
 
-        if (resource.requestResource(requester) == Resource.SUCCESS) {
-            return Resource.SUCCESS;
-        } else {
-            blockedQueue.add(requester);
-
-            return Resource.FAIL;
-        }
+        return resource.requestResource(requester);
     }
 
     public int releaseResource(Process requester, int id) {
         Resource resource = getResourceById(id);
 
+        /* Release the resource and check that it was released properly. */
         if (resource.releaseResource(requester) == Resource.SUCCESS) {
+            /* Check if any other processes were waiting on this resource. */
             for (Process process : blockedQueue) {
                 if (process.requestedResource == resource) {
+                    /* Move the process from blocked to ready queue. */
                     blockedQueue.remove(process);
                     readyQueue.add(process);
+                    /* Signify that the process is no longer waiting. */
+                    process.requestedResource = null;
                     break;
                 }
             }

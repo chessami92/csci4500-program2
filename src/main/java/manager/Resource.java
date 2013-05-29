@@ -15,6 +15,7 @@ public class Resource {
             processAssigned = requester;
             return SUCCESS;
         } else {
+            requester.requestedResource = this;
             return FAIL;
         }
     }
