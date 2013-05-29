@@ -5,6 +5,7 @@ import work.Task;
 import work.TaskFactory;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 import java.util.Scanner;
 
@@ -12,7 +13,7 @@ public class ProcessRunner {
     /* Queue of processes ready to execute. */
     private static Queue<Process> readyQueue;
     /* Queue of processes waiting for a resource. */
-    private static Queue<Process> blockedQueue;
+    private static List<Process> blockedQueue;
     /* Controls granting and releasing resources. */
     private static ResourceManager manager;
 
@@ -26,11 +27,11 @@ public class ProcessRunner {
         int operation, n;
         Task[] processTasks;
 
-        /* Set up the ready queue and blocked queues for execution. */
+        /* Set up the ready queue for execution. */
         readyQueue = new LinkedList<Process>();
         blockedQueue = new LinkedList<Process>();
 
-        manager = new ResourceManager(numResources);
+        manager = new ResourceManager(numResources, readyQueue, blockedQueue);
 
         for (int i = 0; i < numProcesses; ++i) {
             numTasks = in.nextInt();            /* See how many tasks. */

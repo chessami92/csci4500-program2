@@ -1,6 +1,7 @@
 package work;
 
 import manager.ResourceManager;
+import process.Process;
 
 public class WorkTask extends Task{
 
@@ -11,7 +12,14 @@ public class WorkTask extends Task{
     }
 
     @Override
-    public int execute(ResourceManager manager) {
-        return 0;
+    public int execute(ResourceManager manager, Process process) {
+        duration--;
+
+        /* Check if the work has been completed and return as appropriate. */
+        if(duration == 0) {
+            return Task.DONE;
+        } else {
+            return Task.NOT_DONE;
+        }
     }
 }

@@ -5,6 +5,7 @@ public class TaskFactory {
     private static final int RELEASE_RESOURCE = 2;
     private static final int COMPUTE = 3;
 
+    /* Creates a task given two integers. */
     public static Task createTask(int action, int n) {
         switch(action) {
             case REQUEST_RESOURCE:

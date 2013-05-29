@@ -13,7 +13,7 @@ public class Process {
     /* Which task is to be executed next. Begins with 0. */
     private int currentTask;
     /* Which resource the process is waiting on. */
-    private Resource requestedResource;
+    public Resource requestedResource;
 
     public Process(Task[] tasks) {
         this.tasks = tasks;
@@ -26,7 +26,7 @@ public class Process {
     /* Returns EXECUTING when tasks are still available. */
     public int execute(ResourceManager manager) {
         /* Run the current task and capture the return value. */
-        int taskCode = tasks[currentTask].execute(manager);
+        int taskCode = tasks[currentTask].execute(manager, this);
 
         /* Interpret the return code. */
         switch (taskCode) {

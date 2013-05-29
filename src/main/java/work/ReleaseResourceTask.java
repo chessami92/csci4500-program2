@@ -1,6 +1,7 @@
 package work;
 
 import manager.ResourceManager;
+import process.Process;
 
 public class ReleaseResourceTask extends Task {
 
@@ -11,7 +12,7 @@ public class ReleaseResourceTask extends Task {
     }
 
     @Override
-    public int execute(ResourceManager manager) {
+    public int execute(ResourceManager manager, Process runner) {
         return 0;
     }
 }
