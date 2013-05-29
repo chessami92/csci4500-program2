@@ -63,6 +63,9 @@ public class ProcessRunner {
                 blockedQueue.add(currentProcess);
             } else if (currentProcess.hasWork()) {
                 readyQueue.add(currentProcess);
+            } else {
+                currentProcess.endTime = currentStep;
+                System.out.printf("Process finished at time %d after running for %d cycles.\n", currentProcess.endTime, currentProcess.getRunTime());
             }
         }
         System.out.printf("All processes successfully terminated at step %d.\n", currentStep);
