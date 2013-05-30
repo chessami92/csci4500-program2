@@ -11,13 +11,13 @@ import java.util.Scanner;
 
 public class ProcessRunner {
     /* Full listing of all processes. */
-    private static Process[] processList;
+    private Process[] processList;
     /* Queue of processes ready to execute. */
-    private static Queue<Process> readyQueue;
+    private Queue<Process> readyQueue;
     /* Queue of processes waiting for a resource. */
-    private static List<Process> blockedQueue;
+    private List<Process> blockedQueue;
     /* Controls granting and releasing resources. */
-    private static ResourceManager manager;
+    private ResourceManager manager;
 
     /* Read from the system input to create a queue of processes */
     /* that each contain a list of tasks. Put all processes into */
