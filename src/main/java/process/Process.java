@@ -1,5 +1,6 @@
 package process;
 
+import main.Log;
 import manager.Resource;
 import manager.ResourceManager;
 import work.Task;
@@ -32,6 +33,8 @@ public class Process {
     public void execute(ResourceManager manager) {
         /* Update the total running time. */
         runTime++;
+
+        Log.trace("process %d: ", processId);
 
         /* Run the current task and capture the return value. */
         int taskCode = tasks[currentTask].execute(manager, this);

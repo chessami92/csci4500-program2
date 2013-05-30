@@ -25,7 +25,7 @@ public class DeadlockDetectorTest {
                 "Process 2: run time = 7, ended at 21\n" +
                 "Process 3: run time = 9, ended at 19");
         inputs.add("2 2 2 1 1 1 2 2 1 2 1 1");
-        outputs.add("Deadlock detected at time 2 involving...\n"
+        outputs.add("Deadlock detected at time 3 involving...\n"
                 + "\tprocesses: 1 2\n\tresources: 2 1");
 
         StringBuilder inputSb = new StringBuilder();

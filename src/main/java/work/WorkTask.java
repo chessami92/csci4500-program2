@@ -1,5 +1,6 @@
 package work;
 
+import main.Log;
 import manager.ResourceManager;
 import process.Process;
 
@@ -13,6 +14,8 @@ public class WorkTask extends Task{
 
     @Override
     public int execute(ResourceManager manager, Process process) {
+        Log.trace("(%d,%d)\n", TaskFactory.COMPUTE, duration);
+
         duration--;
 
         /* Check if the work has been completed and return as appropriate. */

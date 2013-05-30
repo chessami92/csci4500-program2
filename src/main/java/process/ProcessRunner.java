@@ -64,6 +64,11 @@ public class ProcessRunner {
         while (readyQueue.peek() != null) {
             Process currentProcess = readyQueue.remove();
 
+            /* Update how many tasks have been executed. */
+            currentStep++;
+
+            Log.trace("%d: ", currentStep);
+
             /* Attempt to execute all of the processes, which may */
             /* throw an error if a deadlock is detected.          */
             try {
@@ -75,14 +80,12 @@ public class ProcessRunner {
                 return;
             }
 
-            /* Update how many tasks have been executed. */
-            currentStep++;
-
             if (currentProcess.isBlocked()) {
                 blockedQueue.add(currentProcess);
             } else if (currentProcess.hasWork()) {
                 readyQueue.add(currentProcess);
             } else {
+                Log.trace("\t(process %d terminated)\n", currentProcess.getProcessId());
                 currentProcess.endTime = currentStep;
             }
         }

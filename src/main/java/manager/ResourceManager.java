@@ -1,5 +1,6 @@
 package manager;
 
+import main.Log;
 import process.Process;
 
 import java.util.LinkedList;
@@ -47,6 +48,7 @@ public class ResourceManager {
             /* Check if any other processes were waiting on this resource. */
             for (Process process : blockedQueue) {
                 if (process.requestedResource == resource) {
+                    Log.trace("\t(process %d unblocked)\n", process.getProcessId());
                     /* Move the process from blocked to ready queue. */
                     blockedQueue.remove(process);
                     readyQueue.add(process);
