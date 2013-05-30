@@ -61,11 +61,21 @@ public class ProcessRunner {
         int currentStep = -1;
 
         while (readyQueue.peek() != null) {
+            Process currentProcess = readyQueue.remove();
+
+            /* Attempt to execute all of the processes, which may */
+            /* throw an error if a deadlock is detected.          */
+            try {
+                currentProcess.execute(manager);
+            } catch (RuntimeException e) {
+                System.out.printf("Deadlock detected at time %d involving...\n%s",
+                        currentStep,
+                        e.getMessage());
+                return;
+            }
+
             /* Update how many tasks have been executed. */
             currentStep++;
-
-            Process currentProcess = readyQueue.remove();
-            currentProcess.execute(manager);
 
             if (currentProcess.isBlocked()) {
                 blockedQueue.add(currentProcess);

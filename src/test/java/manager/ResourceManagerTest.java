@@ -43,13 +43,11 @@ public class ResourceManagerTest {
         assertEquals(running.peek(), requester);
     }
 
-    @Test
+    @Test(expectedExceptions = RuntimeException.class)
     public void requestRequestRelease() {
         assertEquals(manager.requestResource(requester, 1), Resource.SUCCESS);
         assertEquals(running.peek(), requester);
         requester.execute(manager);
-        assertEquals(manager.releaseResource(requester, 1), Resource.SUCCESS);
-        assertEquals(running.peek(), requester);
     }
 
     @Test

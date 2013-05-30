@@ -2,6 +2,7 @@ package manager;
 
 import process.Process;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
@@ -30,7 +31,12 @@ public class ResourceManager {
     public int requestResource(Process requester, int id) {
         Resource resource = getResourceById(id);
 
-        return resource.requestResource(requester);
+        if (resource.requestResource(requester) == Resource.SUCCESS) {
+            return Resource.SUCCESS;
+        } else {
+            checkForDeadlock(requester);
+            return Resource.FAIL;
+        }
     }
 
     public int releaseResource(Process requester, int id) {
@@ -54,5 +60,53 @@ public class ResourceManager {
         } else {
             return Resource.FAIL;
         }
+    }
+
+    private void checkForDeadlock(Process requester) {
+        List<Process> involvedProcesses = new LinkedList<Process>();
+        List<Resource> involvedResources = new LinkedList<Resource>();
+        involvedProcesses.add(requester);
+
+        while (true) {
+            /* Look at the resource requested by the process. */
+            involvedResources.add(0, involvedProcesses.get(0).requestedResource);
+            if (involvedResources.get(0) == null) {
+                break;  /* If no resource, there is no deadlock. */
+            }
+
+            /* Look at the process holding the resource. */
+            involvedProcesses.add(0, involvedResources.get(0).processAssigned);
+            if (involvedProcesses.get(0) == null) {
+                break;  /* If no process, there is no deadlock. */
+            }
+
+            /* If we looped back to the original process, there is a deadlock! */
+            if (requester == involvedProcesses.get(0)) {
+                /* Remove duplicate reference to original process. */
+                involvedProcesses.remove(0);
+                throw new RuntimeException(createDeadlockMessage(
+                        involvedProcesses,
+                        involvedResources));
+            }
+        }
+    }
+
+    private String createDeadlockMessage(List<Process> involvedProcesses,
+                                         List<Resource> involvedResources) {
+        StringBuffer sb = new StringBuffer();
+
+        /* List off all of the PIDs involved in the deadlock. */
+        sb.append("\tprocesses:");
+        for (Process process : involvedProcesses) {
+            sb.append(" ").append(process.getProcessId());
+        }
+
+        /* List off all of the resource IDs involved in the deadlock. */
+        sb.append("\n\tresources:");
+        for (Resource resource : involvedResources) {
+            sb.append(" ").append(resource.getResourceId());
+        }
+
+        return sb.toString();
     }
 }
