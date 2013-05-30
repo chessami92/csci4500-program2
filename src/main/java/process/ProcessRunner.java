@@ -68,7 +68,7 @@ public class ProcessRunner {
             try {
                 currentProcess.execute(manager);
             } catch (RuntimeException e) {
-                System.out.printf("Deadlock detected at time %d involving...\n%s",
+                System.out.printf("Deadlock detected at time %d involving...\n%s\n\n",
                         currentStep,
                         e.getMessage());
                 return;
@@ -92,5 +92,7 @@ public class ProcessRunner {
                     process.getRunTime(),
                     process.endTime);
         }
+        /* Output one final line to separate from next process. */
+        System.out.print("\n");
     }
 }
