@@ -1,3 +1,5 @@
+package main;
+
 import process.ProcessRunner;
 
 import java.util.Scanner;
