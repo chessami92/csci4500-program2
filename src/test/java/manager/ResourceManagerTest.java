@@ -28,7 +28,7 @@ public class ResourceManagerTest {
 
         Task task = new RequestResourceTask(1);
         Task[] tasks = {task};
-        requester = new Process(tasks);
+        requester = new Process(1, tasks);
 
         running.add(requester);
     }

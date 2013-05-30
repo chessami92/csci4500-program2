@@ -18,7 +18,7 @@ public class WorkTaskTest {
         LinkedList<Process> processes = new LinkedList<Process>();
         ResourceManager manager = new ResourceManager(1, processes, processes);
         Task[] tasks = {workTask};
-        Process process = new Process(tasks);
+        Process process = new Process(1, tasks);
 
         for (int i = 0; i < COMPUTATIONS - 1; ++i) {
             assertEquals(workTask.execute(manager, process), Task.NOT_DONE, "Should not be done executing yet.");

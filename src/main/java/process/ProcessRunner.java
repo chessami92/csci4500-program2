@@ -49,7 +49,7 @@ public class ProcessRunner {
                 processTasks[j] = TaskFactory.createTask(operation, n);
             }
             /* Create the new process with the appropriate tasks. */
-            Process process = new Process(processTasks);
+            Process process = new Process(i + 1, processTasks);
             /* Add the process to the list for final reporting. */
             processList[i] = process;
             /* Set up the process to be run. */
@@ -76,9 +76,11 @@ public class ProcessRunner {
             }
         }
         System.out.printf("All processes successfully terminated.\n");
-        for (int i = 0; i < processList.length; ++i) {
-            System.out.printf("Process %d: run time = %d, ended at %d\n", i + 1,
-                    processList[i].getRunTime(), processList[i].endTime);
+        for (Process process : processList) {
+            System.out.printf("Process %d: run time = %d, ended at %d\n",
+                    process.getProcessId(),
+                    process.getRunTime(),
+                    process.endTime);
         }
     }
 }

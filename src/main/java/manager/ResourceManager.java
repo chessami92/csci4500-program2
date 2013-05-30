@@ -16,7 +16,7 @@ public class ResourceManager {
         /* Create array of resources available to the processes. */
         resources = new Resource[numResources];
         for (int i = 0; i < numResources; ++i) {
-            resources[i] = new Resource();
+            resources[i] = new Resource(i + 1);
         }
 
         this.readyQueue = readyQueue;

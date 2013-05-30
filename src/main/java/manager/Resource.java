@@ -5,7 +5,14 @@ import process.Process;
 public class Resource {
     public static final int SUCCESS = 0;
     public static final int FAIL = -1;
-    private Process processAssigned;
+    /* Which process currently holds this resource. */
+    protected Process processAssigned;
+    /* The ID for this resource. */
+    private int resourceId;
+
+    public Resource(int resourceId) {
+        this.resourceId = resourceId;
+    }
 
     /* Method for requesting this resource.           */
     /* Returns SUCCESS if the resource was available. */
@@ -30,5 +37,9 @@ public class Resource {
         } else {
             return FAIL;
         }
+    }
+
+    public int getResourceId() {
+        return resourceId;
     }
 }

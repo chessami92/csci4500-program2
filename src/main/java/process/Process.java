@@ -15,12 +15,17 @@ public class Process {
     private int currentTask;
     /* How long this process has taken to run. */
     private int runTime;
+    /* The ID for this process. */
+    private int processId;
 
-    public Process(Task[] tasks) {
+    public Process(int processId, Task[] tasks) {
         this.tasks = tasks;
         currentTask = 0;
         runTime = 0;
+        /* Signify it hasn't ended yet. */
         endTime = -1;
+
+        this.processId = processId;
     }
 
     /* Executes the next tasks in the process. */
@@ -47,5 +52,9 @@ public class Process {
 
     public int getRunTime() {
         return runTime;
+    }
+
+    public int getProcessId() {
+        return processId;
     }
 }
