@@ -1,5 +1,6 @@
 package process;
 
+import main.Log;
 import manager.ResourceManager;
 import work.Task;
 import work.TaskFactory;
@@ -68,7 +69,7 @@ public class ProcessRunner {
             try {
                 currentProcess.execute(manager);
             } catch (RuntimeException e) {
-                System.out.printf("Deadlock detected at time %d involving...\n%s\n\n",
+                Log.info("Deadlock detected at time %d involving...\n%s\n\n",
                         currentStep,
                         e.getMessage());
                 return;
@@ -85,14 +86,14 @@ public class ProcessRunner {
                 currentProcess.endTime = currentStep;
             }
         }
-        System.out.printf("All processes successfully terminated.\n");
+        Log.info("All processes successfully terminated.\n");
         for (Process process : processList) {
-            System.out.printf("Process %d: run time = %d, ended at %d\n",
+            Log.info("Process %d: run time = %d, ended at %d\n",
                     process.getProcessId(),
                     process.getRunTime(),
                     process.endTime);
         }
         /* Output one final line to separate from next process. */
-        System.out.print("\n");
+        Log.info("\n");
     }
 }

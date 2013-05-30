@@ -7,8 +7,17 @@ import java.util.Scanner;
 public class DeadlockDetector {
     /* Reading the input from standard input. */
     private static Scanner in;
+    /* How much logging should be performed. */
+    protected static int logLevel;
 
     public static void main(String[] args) {
+
+        if (args.length != 0) {
+            logLevel = Log.TRACE;
+        } else {
+            logLevel = Log.INFO;
+        }
+
         int simulationNumber = 0;
 
         in = new Scanner(System.in);
@@ -23,7 +32,7 @@ public class DeadlockDetector {
             }
 
             simulationNumber++;
-            System.out.printf("Simulation %d\n", simulationNumber);
+            Log.info("Simulation %d\n", simulationNumber);
 
             /* Create the processes, resources, and resource manager. */
             ProcessRunner runner = new ProcessRunner(in, numProcesses, numResources);

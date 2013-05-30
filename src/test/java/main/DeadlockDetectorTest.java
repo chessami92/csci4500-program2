@@ -51,7 +51,7 @@ public class DeadlockDetectorTest {
         OutputStream systemOutput = new ByteArrayOutputStream();
         System.setOut(new PrintStream(systemOutput));
 
-        DeadlockDetector.main(new String[]{argument});
+        DeadlockDetector.main(argument == null ? new String[]{} : new String[]{argument});
         assertEquals(systemOutput.toString(), expectedOutput);
     }
 }

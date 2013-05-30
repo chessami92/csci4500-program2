@@ -11,7 +11,7 @@ public class ResourceManager {
     private Queue<Process> readyQueue;
     private List<Process> blockedQueue;
 
-    /* Create a resouce manager with the given number of resources. */
+    /* Create a resource manager with the given number of resources. */
     public ResourceManager(int numResources, Queue<Process> readyQueue,
                            List<Process> blockedQueue) {
         /* Create array of resources available to the processes. */
