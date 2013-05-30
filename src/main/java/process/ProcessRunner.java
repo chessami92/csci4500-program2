@@ -10,6 +10,8 @@ import java.util.Queue;
 import java.util.Scanner;
 
 public class ProcessRunner {
+    /* Full listing of all processes. */
+    private static Process[] processList;
     /* Queue of processes ready to execute. */
     private static Queue<Process> readyQueue;
     /* Queue of processes waiting for a resource. */
@@ -27,6 +29,9 @@ public class ProcessRunner {
         int operation, n;
         Task[] processTasks;
 
+        /* Create the object to list all processes. */
+        processList = new Process[numProcesses];
+
         /* Set up the ready queue for execution. */
         readyQueue = new LinkedList<Process>();
         blockedQueue = new LinkedList<Process>();
@@ -43,20 +48,23 @@ public class ProcessRunner {
 
                 processTasks[j] = TaskFactory.createTask(operation, n);
             }
-            /* Create the process and add it to the ready queue. */
-            readyQueue.add(new Process(processTasks));
+            /* Create the new process with the appropriate tasks. */
+            Process process = new Process(processTasks);
+            /* Add the process to the list for final reporting. */
+            processList[i] = process;
+            /* Set up the process to be run. */
+            readyQueue.add(process);
         }
     }
 
     public void runProcesses() {
-        Process currentProcess;
         int currentStep = -1;
 
         while (readyQueue.peek() != null) {
             /* Update how many tasks have been executed. */
             currentStep++;
 
-            currentProcess = readyQueue.remove();
+            Process currentProcess = readyQueue.remove();
             currentProcess.execute(manager);
 
             if (currentProcess.isBlocked()) {
@@ -65,9 +73,12 @@ public class ProcessRunner {
                 readyQueue.add(currentProcess);
             } else {
                 currentProcess.endTime = currentStep;
-                System.out.printf("Process finished at time %d after running for %d cycles.\n", currentProcess.endTime, currentProcess.getRunTime());
             }
         }
-        System.out.printf("All processes successfully terminated at step %d.\n", currentStep);
+        System.out.printf("All processes successfully terminated.\n");
+        for (int i = 0; i < processList.length; ++i) {
+            System.out.printf("Process %d: run time = %d, ended at %d\n", i + 1,
+                    processList[i].getRunTime(), processList[i].endTime);
+        }
     }
 }
