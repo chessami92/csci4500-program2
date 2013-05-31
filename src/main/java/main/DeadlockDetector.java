@@ -7,15 +7,13 @@ import java.util.Scanner;
 public class DeadlockDetector {
     /* Reading the input from standard input. */
     private static Scanner in;
-    /* How much logging should be performed. */
-    protected static int logLevel;
 
     public static void main(String[] args) {
 
         if (args.length != 0) {
-            logLevel = Log.TRACE;
+            Log.logLevel = Log.TRACE;
         } else {
-            logLevel = Log.INFO;
+            Log.logLevel = Log.INFO;
         }
 
         int simulationNumber = 0;
