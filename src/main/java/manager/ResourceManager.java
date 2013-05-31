@@ -95,7 +95,7 @@ public class ResourceManager {
 
     private String createDeadlockMessage(List<Process> involvedProcesses,
                                          List<Resource> involvedResources) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         /* List off all of the PIDs involved in the deadlock. */
         sb.append("\tprocesses:");
