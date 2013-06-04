@@ -15,9 +15,9 @@ public class DeadlockDetectorTest {
             "2 2 2 1 1 1 2 2 1 2 1 1",
             "3 3 6 1 1 3 3 1 2 3 3 2 1 2 2 6 1 2 3 3 1 3 3 3 2 2 2 3 6 1 3 3 3 1 1 3 3 2 3 2 1"};
     private static final String SECOND_SOLUTION = "All processes successfully terminated.\n" +
-            "Process 1: run time = 6, ended at 12\n" +
-            "Process 2: run time = 7, ended at 21\n" +
-            "Process 3: run time = 9, ended at 19";
+            "Process 1: run time = 6, ended at 11\n" +
+            "Process 2: run time = 6, ended at 20\n" +
+            "Process 3: run time = 9, ended at 18";
 
     @DataProvider(name = "testCases")
     public Object[][] createTestCases() {
@@ -34,10 +34,10 @@ public class DeadlockDetectorTest {
         inputs.add(SIMULATIONS[1]);
         outputs.add(SECOND_SOLUTION);
         inputs.add(SIMULATIONS[2]);
-        outputs.add("Deadlock detected at time 3 involving...\n" +
+        outputs.add("Deadlock detected at time 2 involving...\n" +
                 "\tprocesses: 1 2\n\tresources: 2 1");
         inputs.add(SIMULATIONS[3]);
-        outputs.add("Deadlock detected at time 14 involving...\n" +
+        outputs.add("Deadlock detected at time 12 involving...\n" +
                 "\tprocesses: 2 1 3\n\tresources: 3 2 1");
 
         StringBuilder inputSb = new StringBuilder();
@@ -56,51 +56,48 @@ public class DeadlockDetectorTest {
     }
 
     private Object[] traceOutput() {
-        StringBuilder outputSb = new StringBuilder();
-        int i = 0;
+        String output = "Simulation 1\n" +
+                "0: process 1: (1,1)\n" +
+                "\t(resource 1 allocated)\n" +
+                "1: process 2: (1,1)\n" +
+                "\t(resource 1 unavailable)\n" +
+                "1: process 3: (1,3)\n" +
+                "\t(resource 3 allocated)\n" +
+                "2: process 1: (1,2)\n" +
+                "\t(resource 2 allocated)\n" +
+                "3: process 3: (3,5)\n" +
+                "4: process 1: (3,2)\n" +
+                "5: process 3: (3,4)\n" +
+                "6: process 1: (3,1)\n" +
+                "7: process 3: (3,3)\n" +
+                "8: process 1: (2,1)\n" +
+                "\t(resource 1 released)\n" +
+                "\t(process 2 unblocked)\n" +
+                "9: process 3: (3,2)\n" +
+                "10: process 2: (1,1)\n" +
+                "\t(resource 1 allocated)\n" +
+                "11: process 1: (2,2)\n" +
+                "\t(resource 2 released)\n" +
+                "\t(process 1 terminated)\n" +
+                "12: process 3: (3,1)\n" +
+                "13: process 2: (1,2)\n" +
+                "\t(resource 2 allocated)\n" +
+                "14: process 3: (2,3)\n" +
+                "\t(resource 3 released)\n" +
+                "15: process 2: (3,2)\n" +
+                "16: process 3: (3,2)\n" +
+                "17: process 2: (3,1)\n" +
+                "18: process 3: (3,1)\n" +
+                "\t(process 3 terminated)\n" +
+                "19: process 2: (2,1)\n" +
+                "\t(resource 1 released)\n" +
+                "20: process 2: (2,2)\n" +
+                "\t(resource 2 released)\n" +
+                "\t(process 2 terminated)\n" +
+                SECOND_SOLUTION +
+                "\n\n";
 
-        outputSb.append("Simulation 1\n")
-                .append(i++).append(": process 1: (1,1)\n")
-                .append("\t(resource 1 allocated)\n")
-                .append(i++).append(": process 2: (1,1)\n")
-                .append("\t(resource 1 unavailable)\n")
-                .append(i++).append(": process 3: (1,3)\n")
-                .append("\t(resource 3 allocated)\n")
-                .append(i++).append(": process 1: (1,2)\n")
-                .append("\t(resource 2 allocated)\n")
-                .append(i++).append(": process 3: (3,5)\n")
-                .append(i++).append(": process 1: (3,2)\n")
-                .append(i++).append(": process 3: (3,4)\n")
-                .append(i++).append(": process 1: (3,1)\n")
-                .append(i++).append(": process 3: (3,3)\n")
-                .append(i++).append(": process 1: (2,1)\n")
-                .append("\t(resource 1 released)\n")
-                .append("\t(process 2 unblocked)\n")
-                .append(i++).append(": process 3: (3,2)\n")
-                .append(i++).append(": process 2: (1,1)\n")
-                .append("\t(resource 1 allocated)\n")
-                .append(i++).append(": process 1: (2,2)\n")
-                .append("\t(resource 2 released)\n")
-                .append("\t(process 1 terminated)\n")
-                .append(i++).append(": process 3: (3,1)\n")
-                .append(i++).append(": process 2: (1,2)\n")
-                .append("\t(resource 2 allocated)\n")
-                .append(i++).append(": process 3: (2,3)\n")
-                .append("\t(resource 3 released)\n")
-                .append(i++).append(": process 2: (3,2)\n")
-                .append(i++).append(": process 3: (3,2)\n")
-                .append(i++).append(": process 2: (3,1)\n")
-                .append(i++).append(": process 3: (3,1)\n")
-                .append("\t(process 3 terminated)\n")
-                .append(i++).append(": process 2: (2,1)\n")
-                .append("\t(resource 1 released)\n")
-                .append(i++).append(": process 2: (2,2)\n")
-                .append("\t(resource 2 released)\n")
-                .append("\t(process 2 terminated)\n")
-                .append(SECOND_SOLUTION)
-                .append("\n\n");
-
-        return new Object[]{"", SIMULATIONS[1], outputSb.toString()};
+        return new Object[]{"", SIMULATIONS[1], output};
     }
 
     @Test(dataProvider = "testCases")

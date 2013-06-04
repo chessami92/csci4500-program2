@@ -42,6 +42,8 @@ public class Process {
         /* See if task completed successfully. */
         if (taskCode == Task.DONE) {
             currentTask++;
+        } else if(taskCode == Task.BLOCKED) {
+            runTime--;
         }
     }
 

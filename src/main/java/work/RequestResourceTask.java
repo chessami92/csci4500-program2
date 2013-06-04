@@ -19,7 +19,7 @@ public class RequestResourceTask extends Task {
         if (manager.requestResource(runner, resource) == Resource.SUCCESS) {
             return DONE;
         } else {
-            return NOT_DONE;
+            return BLOCKED;
         }
     }
 }

@@ -67,25 +67,29 @@ public class ProcessRunner {
             /* Update how many tasks have been executed. */
             currentStep++;
 
-            Log.trace("%d: ", currentStep);
-
             /* Attempt to execute all of the processes, which may */
             /* throw an error if a deadlock is detected.          */
             try {
                 currentProcess.execute(manager);
             } catch (RuntimeException e) {
+                Log.printTrace("%d: ", currentStep);
+
                 Log.info("Deadlock detected at time %d involving...\n%s\n\n",
                         currentStep,
                         e.getMessage());
                 return;
             }
 
+            Log.printTrace("%d: ", currentStep);
+
             if (currentProcess.isBlocked()) {
+                currentStep--;
+
                 blockedQueue.add(currentProcess);
             } else if (currentProcess.hasWork()) {
                 readyQueue.add(currentProcess);
             } else {
-                Log.trace("\t(process %d terminated)\n", currentProcess.getProcessId());
+                Log.printTrace("\t(process %d terminated)\n", currentProcess.getProcessId());
                 currentProcess.endTime = currentStep;
             }
         }
