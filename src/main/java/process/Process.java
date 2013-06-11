@@ -1,5 +1,15 @@
 package process;
 
+/*
+ * Author: Josh DeWitt
+ * Written for Program 2 during CSCI4500 in 2013 Summer session.
+ *
+ * Object representing a process in the simulation.
+ * Contains a list of tasks to be executed. Also has a reference to a
+ * resource that is being requested by this process, which is null when
+ * the process is not blocking for any resources.
+ */
+
 import main.Log;
 import manager.Resource;
 import manager.ResourceManager;
@@ -41,24 +51,30 @@ public class Process {
 
         /* See if task completed successfully. */
         if (taskCode == Task.DONE) {
+            /* Execute next task when process is next invoked. */
             currentTask++;
-        } else if(taskCode == Task.BLOCKED) {
+        } else if (taskCode == Task.BLOCKED) {
+            /* Failed requests for resources count as zero time. */
             runTime--;
         }
     }
 
+    /* See if this process has any tasks left to execute. */
     public boolean hasWork() {
         return currentTask < tasks.length;
     }
 
+    /* See if this process is blocked waiting for a resource. */
     public boolean isBlocked() {
         return requestedResource != null;
     }
 
+    /* See how many steps this process took to execute. */
     public int getRunTime() {
         return runTime;
     }
 
+    /* Return which process this is. */
     public int getProcessId() {
         return processId;
     }

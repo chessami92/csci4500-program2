@@ -1,5 +1,14 @@
 package work;
 
+/*
+ * Author: Josh DeWitt
+ * Written for Program 2 during CSCI4500 in 2013 Summer session.
+ *
+ * Convenient method for creating tasks given two integers.
+ * The first integer is the action, and the second integer's meaning
+ * depends on the first integer.
+ */
+
 public class TaskFactory {
     public static final int REQUEST_RESOURCE = 1;
     public static final int RELEASE_RESOURCE = 2;
