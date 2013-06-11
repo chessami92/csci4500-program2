@@ -98,13 +98,13 @@ public class ResourceManager {
         StringBuilder sb = new StringBuilder();
 
         /* List off all of the PIDs involved in the deadlock. */
-        sb.append("\tprocesses:");
+        sb.append("    processes:");
         for (Process process : involvedProcesses) {
             sb.append(" ").append(process.getProcessId());
         }
 
         /* List off all of the resource IDs involved in the deadlock. */
-        sb.append("\n\tresources:");
+        sb.append("\n    resources:");
         for (Resource resource : involvedResources) {
             sb.append(" ").append(resource.getResourceId());
         }
