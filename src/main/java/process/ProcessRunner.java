@@ -1,5 +1,14 @@
 package process;
 
+/*
+ * Author: Josh DeWitt
+ * Written for Program 2 during CSCI4500 in 2013 Summer session.
+ *
+ * Main runner for the simulation. Creates the ready and blocked queues.
+ * Creates the processes with all of their tasks using the standard input.
+ * Takes processes from the ready queue and runs them.
+ */
+
 import main.Log;
 import manager.ResourceManager;
 import work.Task;
@@ -39,6 +48,7 @@ public class ProcessRunner {
 
         manager = new ResourceManager(numResources, readyQueue, blockedQueue);
 
+        /* Create all of the processes according to the input. */
         for (int i = 0; i < numProcesses; ++i) {
             numTasks = in.nextInt();            /* See how many tasks. */
             processTasks = new Task[numTasks];
@@ -61,6 +71,7 @@ public class ProcessRunner {
     public void runProcesses() {
         int currentStep = -1;
 
+        /* Run until the ready queue is empty. */
         while (readyQueue.peek() != null) {
             Process currentProcess = readyQueue.remove();
 
@@ -82,6 +93,7 @@ public class ProcessRunner {
 
             Log.printTrace("%d: ", currentStep);
 
+            /* Add the process to the correct queue according to its state. */
             if (currentProcess.isBlocked()) {
                 currentStep--;
 
@@ -89,10 +101,14 @@ public class ProcessRunner {
             } else if (currentProcess.hasWork()) {
                 readyQueue.add(currentProcess);
             } else {
+                /* Trace that this process successfully terminated. */
                 Log.printTrace("\t(process %d terminated)\n", currentProcess.getProcessId());
                 currentProcess.endTime = currentStep;
             }
         }
+
+        /* Did not receive any exceptions from deadlocks, */
+        /* so everything terminated correctly.            */
         Log.info("All processes successfully terminated.\n");
         for (Process process : processList) {
             Log.info("Process %d: run time = %d, ended at %d\n",
@@ -100,6 +116,7 @@ public class ProcessRunner {
                     process.getRunTime(),
                     process.endTime);
         }
+
         /* Output one final line to separate from next process. */
         Log.info("\n");
     }

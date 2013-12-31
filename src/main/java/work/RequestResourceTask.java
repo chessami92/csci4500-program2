@@ -1,5 +1,12 @@
 package work;
 
+/*
+ * Author: Josh DeWitt
+ * Written for Program 2 during CSCI4500 in 2013 Summer session.
+ *
+ * Task that requests exclusive access to a resource.
+ */
+
 import main.Log;
 import manager.Resource;
 import manager.ResourceManager;
@@ -13,6 +20,7 @@ public class RequestResourceTask extends Task {
         this.resource = resource;
     }
 
+    /* Request exclusive access to a resource. */
     @Override
     public int execute(ResourceManager manager, Process runner) {
         Log.trace("(%d,%d)\n", TaskFactory.REQUEST_RESOURCE, resource);

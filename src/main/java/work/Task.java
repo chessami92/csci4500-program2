@@ -1,5 +1,12 @@
 package work;
 
+/*
+ * Author: Josh DeWitt
+ * Written for Program 2 during CSCI4500 in 2013 Summer session.
+ *
+ * Interface for a task - the basic unit of work in the simulation.
+ */
+
 import manager.ResourceManager;
 import process.Process;
 

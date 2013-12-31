@@ -1,5 +1,14 @@
 package manager;
 
+/*
+ * Author: Josh DeWitt
+ * Written for Program 2 during CSCI4500 in 2013 Summer session.
+ *
+ * Object representing a resource in the simulation.
+ * Contains a reference to a process that owns this resource, which is
+ * null when the resource is available.
+ */
+
 import main.Log;
 import process.Process;
 
@@ -43,6 +52,7 @@ public class Resource {
         }
     }
 
+    /* Return which resource this is. */
     public int getResourceId() {
         return resourceId;
     }

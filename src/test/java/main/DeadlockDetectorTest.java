@@ -35,10 +35,10 @@ public class DeadlockDetectorTest {
         outputs.add(SECOND_SOLUTION);
         inputs.add(SIMULATIONS[2]);
         outputs.add("Deadlock detected at time 2 involving...\n" +
-                "\tprocesses: 1 2\n\tresources: 2 1");
+                "    processes: 1 2\n    resources: 2 1");
         inputs.add(SIMULATIONS[3]);
         outputs.add("Deadlock detected at time 12 involving...\n" +
-                "\tprocesses: 2 1 3\n\tresources: 3 2 1");
+                "    processes: 2 1 3\n    resources: 3 2 1");
 
         StringBuilder inputSb = new StringBuilder();
         StringBuilder outputSb = new StringBuilder();
